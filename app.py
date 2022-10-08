@@ -60,4 +60,20 @@ def add_quote():
     else:
         return make_response(json.dumps(results, default=str), 400)
 
+@app.delete('/api/delete')
+def delete_quote_and_philosopher():
+    invalid = check_endpoint_info(request.json, ['philosopher_id'])
+    if(invalid != None):
+        return make_response(json.dumps(invalid, default=str), 400) 
+
+    results = run_statement('CALL delete_quote_and_philosopher(?)',
+    [request.json.get('philosopher_id')])
+
+    if(type(results) == list):
+        return make_response(json.dumps(results, default=str), 200)
+    elif(results.startswith('Duplicate entry')):
+        return "This username already exists. Please, pick other."
+    else:
+        return make_response(json.dumps(results, default=str), 400)
+
 app.run(debug=True)
