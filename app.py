@@ -102,8 +102,8 @@ def delete_quote_and_philosopher():
     # checking to see if the response is a list and if yes, turn this response into a JSON and the status code response, if not, sent back a message with the status code response
     if(type(results) == list):
         return make_response(json.dumps(results, default=str), 200)
-    elif(results.startswith('Duplicate entry')):
-        return "This username already exists. Please, pick other."
+    elif(results.startswith('Incorrect integer value')):
+        return "This philosopher id doesn't exists. Please, insert an existing one."
     else:
         return make_response(json.dumps(results, default=str), 400)
 
