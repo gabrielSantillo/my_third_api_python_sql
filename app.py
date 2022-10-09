@@ -78,8 +78,10 @@ def add_quote():
     # checking to see if the response is a list and if yes, turn this response into a JSON and the status code response, if not, sent back a message with the status code response
     if(type(results) == list):
         return make_response(json.dumps(results, default=str), 200)
-    elif(results.startswith('Duplicate entry')):
-        return "This username already exists. Please, pick other."
+    elif(results.startswith('Cannot add or update a child row')):
+        return "This philosopher id doesn't exists. Please, insert an existing one."
+    elif(results.startswith('Incorrect integer value')):
+        return "Please, choose a valid philosopher id."
     else:
         return make_response(json.dumps(results, default=str), 400)
 
@@ -105,4 +107,5 @@ def delete_quote_and_philosopher():
     else:
         return make_response(json.dumps(results, default=str), 400)
 
+# starting our application flask server with debug mode turned on
 app.run(debug=True)
