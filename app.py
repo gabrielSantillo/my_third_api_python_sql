@@ -52,7 +52,7 @@ def get_quotes_by_philosopher_id():
     if(invalid != None):
         return make_response(json.dumps(invalid, default=str), 400) 
     # calling the procedure
-    results = run_statement('CALL get_quotes_by_phylosopher_id(?)', [request.json.get('philosopher_id')])
+    results = run_statement('CALL get_quotes_by_phylosopher_id(?)', [request.args.get('philosopher_id')])
 
     # checking to see if the response is a list and if yes, turn this response into a JSON and the status code response, if not, sent back a message with the status code response
     if(type(results) == list):
