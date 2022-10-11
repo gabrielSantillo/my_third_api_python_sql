@@ -47,7 +47,7 @@ def add_philosopher():
 # function that will call the procedure responsible to get the philosopher based on its id
 def get_quotes_by_philosopher_id():
     # calling the function that will verify the return value
-    invalid = check_endpoint_info(request.json, ['philosopher_id'])
+    invalid = check_endpoint_info(request.args, ['philosopher_id'])
     # if the invalid value is anything but None return with the make_response showing what was the error
     if(invalid != None):
         return make_response(json.dumps(invalid, default=str), 400) 
